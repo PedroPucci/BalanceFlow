@@ -90,9 +90,6 @@ Camada intermediária entre os controladores e o banco de dados. Responsável ta
 Camada de domínio, responsável pelos dados principais do sistema.
 1. Organização das pastas:
 - **Entity**: Contém as entidades do projeto.
-- **Enum**: Contém enums utilizados no projeto.
-- **General**: Contém classes genéricas, incluindo a `BaseEntity`, com propriedades comuns às entidades.
-- **Dto**: Contém objetos de transferência de dados (DTOs), utilizados para transportar informações entre as camadas do sistema sem expor diretamente as entidades do domínio.
 ---
 ### **4. BalanceFlow.Infrastructure**
 Camada responsável pela interação com o banco de dados.
@@ -106,6 +103,7 @@ Biblioteca utilizada para validações e compartilhamento de recursos comuns:
 1. Organização das pastas:
 - **Enums**: Classes de enums para erros.
 - **Helpers**: Classe auxiliar para validação de erros.
+- **Logging**: Responsável pelos logs.
 - **Validator**: Regras de validação para as entidades.
 ---
 ### **6. BalanceFlow.Tests**

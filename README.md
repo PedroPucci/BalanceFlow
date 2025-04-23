@@ -107,3 +107,18 @@ Biblioteca utilizada para validações e compartilhamento de recursos comuns:
 - **Helpers**: Classe auxiliar para validação de erros.
 - **Validator**: Regras de validação para as entidades.
 ---
+## **Melhorias do projeto**
+- **XUnit/Testes unitários**: Criação de testes unitários para as entidades e para as classes de serviços, garantindo uma maior cobertura de segurança do sistema.
+- **Docker**: Utilização do docker, isso facilita para que não precise instalar o banco de dados que a aplicação usa. Utilizando de conteiner com o banco de dados da aplicação.
+- **Autenticação via JWT**: Garantir que os usuários vejam apenas as informações que precisam e podem ver.
+- **Criação do front**: Criação de um front seja em Angular ou React para interagir com a API.
+---
+## **Arquitetura do sistema**
+![imagem1Arq](https://github.com/user-attachments/assets/ac711fc4-66aa-4e1c-86ec-9846a4b8ac35)
+# **Garatindo**
+- **Separação por responsabilidades**.
+- **Segurança**.
+- **Persistência e Migrations**
+- **Integração e BFF**
+- **Mensageria**
+---

@@ -1,6 +1,7 @@
 ﻿using BalanceFlow.Domain.Entity;
 using BalanceFlow.Infrastracture.Connections;
 using BalanceFlow.Infrastracture.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BalanceFlow.Infrastracture.Repository.Request
 {
@@ -13,24 +14,31 @@ namespace BalanceFlow.Infrastracture.Repository.Request
             _context = context;
         }
 
-        public Task<CashEntryEntity> Add(CashEntryEntity cashEntryEntity)
+        public async Task<CashEntryEntity> Add(CashEntryEntity cashEntryEntity)
         {
-            throw new NotImplementedException();
+            if (cashEntryEntity is null)
+                throw new ArgumentNullException(nameof(cashEntryEntity), "CashEntry cannot be null");
+
+            var result = await _context.CashEntryEntity.AddAsync(cashEntryEntity);
+            await _context.SaveChangesAsync();
+
+            return result.Entity;
         }
 
-        public CashEntryEntity Delete(CashEntryEntity cashEntryEntity)
+        public async Task<List<CashEntryEntity>> Get()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<CashEntryEntity>> Get()
-        {
-            throw new NotImplementedException();
-        }
-
-        public CashEntryEntity Update(CashEntryEntity cashEntryEntity)
-        {
-            throw new NotImplementedException();
+            return await _context.CashEntryEntity
+                .AsNoTracking()
+                .OrderBy(entry => entry.Id)
+                .Select(entry => new CashEntryEntity
+                {
+                    Id = entry.Id,
+                    Amount = entry.Amount,
+                    CreatedAt = entry.CreatedAt,
+                    Description = entry.Description,
+                    TransactionDate = entry.TransactionDate,
+                })
+                .ToListAsync();
         }
     }
 }

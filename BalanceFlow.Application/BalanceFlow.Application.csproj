@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BalanceFlow.Domain\BalanceFlow.Domain.csproj" />
     <ProjectReference Include="..\BalanceFlow.Infrastracture\BalanceFlow.Infrastracture.csproj" />
+    <ProjectReference Include="..\BalanceFlow.Shared\BalanceFlow.Shared.csproj" />
   </ItemGroup>
 
 </Project>

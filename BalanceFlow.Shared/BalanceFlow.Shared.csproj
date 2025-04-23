@@ -23,4 +23,8 @@
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BalanceFlow.Domain\BalanceFlow.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

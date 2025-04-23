@@ -2,6 +2,9 @@
 using BalanceFlow.Application.Services.Interfaces;
 using BalanceFlow.Domain.Entity;
 using BalanceFlow.Infrastracture.Repository.RepositoryUoW;
+using BalanceFlow.Shared.Logging;
+using BalanceFlow.Shared.Validator;
+using Serilog;
 
 namespace BalanceFlow.Application.Services
 {
@@ -14,24 +17,75 @@ namespace BalanceFlow.Application.Services
             _repositoryUoW = repositoryUoW;
         }
 
-        public Task<Result<CashEntryEntity>> Add(CashEntryEntity cashEntryEntity)
+        public async Task<Result<CashEntryEntity>> Add(CashEntryEntity cashEntryEntity)
         {
-            throw new NotImplementedException();
+            using var transaction = _repositoryUoW.BeginTransaction();
+            try
+            {
+                var isValidCashEntry = await IsValidCashEntryRequest(cashEntryEntity);
+
+                if (!isValidCashEntry.Success)
+                {
+                    Log.Error(LogMessages.InvalidCashEntryInputs());
+                    return Result<CashEntryEntity>.Error(isValidCashEntry.Message);
+                }
+
+                cashEntryEntity.Description = cashEntryEntity.Description;
+                cashEntryEntity.CreatedAt = DateTime.UtcNow; 
+                
+                var result = await _repositoryUoW.CashEntryRepository.Add(cashEntryEntity);
+
+                await _repositoryUoW.SaveAsync();
+                await transaction.CommitAsync();
+                
+                return Result<CashEntryEntity>.Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(LogMessages.AddingCashEntryError(ex));
+                transaction.Rollback();
+                throw new InvalidOperationException("Error to add a new cash entry");
+            }
+            finally
+            {
+                Log.Error(LogMessages.AddingCashEntrySuccess());
+                transaction.Dispose();
+            }
         }
 
-        public Task Delete(int cashEntryId)
+        public async Task<List<CashEntryEntity>> Get()
         {
-            throw new NotImplementedException();
+            using var transaction = _repositoryUoW.BeginTransaction();
+            try
+            {
+                List<CashEntryEntity> cashEntryEntities = await _repositoryUoW.CashEntryRepository.Get();
+                _repositoryUoW.Commit();
+                return cashEntryEntities;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(LogMessages.GetAllCashEntryError(ex));
+                transaction.Rollback();
+                throw new InvalidOperationException("Error to loading the list User");
+            }
+            finally
+            {
+                Log.Error(LogMessages.GetAllCashEntrySuccess());
+                transaction.Dispose();
+            }
         }
 
-        public Task<List<CashEntryEntity>> Get()
+        private async Task<Result<CashEntryEntity>> IsValidCashEntryRequest(CashEntryEntity cashEntryEntity)
         {
-            throw new NotImplementedException();
-        }
+            var requestValidator = await new CashEntryRequestValidator().ValidateAsync(cashEntryEntity);
+            if (!requestValidator.IsValid)
+            {
+                string errorMessage = string.Join(" ", requestValidator.Errors.Select(e => e.ErrorMessage));
+                errorMessage = errorMessage.Replace(Environment.NewLine, "");
+                return Result<CashEntryEntity>.Error(errorMessage);
+            }
 
-        public Task<Result<CashEntryEntity>> Update(CashEntryEntity cashEntryEntity)
-        {
-            throw new NotImplementedException();
+            return Result<CashEntryEntity>.Ok();
         }
     }
 }

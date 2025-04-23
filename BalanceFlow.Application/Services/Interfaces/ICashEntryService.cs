@@ -5,9 +5,7 @@ namespace BalanceFlow.Application.Services.Interfaces
 {
     public interface ICashEntryService
     {
-        Task<Result<CashEntryEntity>> Add(CashEntryEntity cashEntryEntity);
-        Task<Result<CashEntryEntity>> Update(CashEntryEntity cashEntryEntity);
-        Task Delete(int cashEntryId);
+        Task<Result<CashEntryEntity>> Add(CashEntryEntity cashEntryEntity);        
         Task<List<CashEntryEntity>> Get();
     }
 }

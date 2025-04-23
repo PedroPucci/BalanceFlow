@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\BalanceFlow.Application\BalanceFlow.Application.csproj" />
+    <ProjectReference Include="..\BalanceFlow.Infrastracture\BalanceFlow.Infrastracture.csproj" />
   </ItemGroup>
 
 </Project>

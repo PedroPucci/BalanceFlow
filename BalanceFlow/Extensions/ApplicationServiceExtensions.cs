@@ -22,7 +22,7 @@ namespace BalanceFlow.Extensions
                 opt.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "API Teste",
+                    Title = "API BalanceFlow",
                     Description = @"
                         Descrição:
                         Um comerciante precisa controlar o seu fluxo de caixa diário com os lançamentos (débitos e créditos), também precisa de um relatório que disponibilize

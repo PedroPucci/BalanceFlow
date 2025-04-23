@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35919.96 d17.13
+VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow", "BalanceFlow\BalanceFlow.csproj", "{2815FB60-F28D-4C17-A271-31B64DBC9366}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -25,6 +25,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow.Infrastracture"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow.Shared", "BalanceFlow.Shared\BalanceFlow.Shared.csproj", "{208799FC-A81B-4908-9092-3063A39AF54F}"
 	ProjectSection(ProjectDependencies) = postProject
+		{64DB6250-6D6F-4D1D-9D3D-B818D25A9192} = {64DB6250-6D6F-4D1D-9D3D-B818D25A9192}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow.Tests", "BalanceFlow.Tests\BalanceFlow.Tests.csproj", "{E917F390-D47B-41CA-91AE-99764F73B6F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2C0AF272-13C7-4D8B-9422-5834730BA673} = {2C0AF272-13C7-4D8B-9422-5834730BA673}
 		{64DB6250-6D6F-4D1D-9D3D-B818D25A9192} = {64DB6250-6D6F-4D1D-9D3D-B818D25A9192}
 	EndProjectSection
 EndProject
@@ -54,6 +60,10 @@ Global
 		{208799FC-A81B-4908-9092-3063A39AF54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{208799FC-A81B-4908-9092-3063A39AF54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{208799FC-A81B-4908-9092-3063A39AF54F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E917F390-D47B-41CA-91AE-99764F73B6F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E917F390-D47B-41CA-91AE-99764F73B6F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E917F390-D47B-41CA-91AE-99764F73B6F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E917F390-D47B-41CA-91AE-99764F73B6F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

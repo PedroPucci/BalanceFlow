@@ -94,7 +94,7 @@ Camada de domínio, responsável pelos dados principais do sistema.
 - **General**: Contém classes genéricas, incluindo a `BaseEntity`, com propriedades comuns às entidades.
 - **Dto**: Contém objetos de transferência de dados (DTOs), utilizados para transportar informações entre as camadas do sistema sem expor diretamente as entidades do domínio.
 ---
-### **4. TrainMaster.Infrastructure**
+### **4. BalanceFlow.Infrastructure**
 Camada responsável pela interação com o banco de dados.
 1. Organização das pastas:
 - **Connection**: Configuração de conexão e mapeamento das entidades para o Entity Framework.

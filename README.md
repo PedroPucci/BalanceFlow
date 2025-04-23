@@ -15,6 +15,7 @@ diário consolidado.
 - **Unit of Work**: Padrão de design para gerenciar transações e persistência de dados de forma coesa.
 - **Migrations**: Gerenciamento de alterações no banco de dados.
 - **Swagger**: Para documentação e teste interativo dos endpoints da API.
+- **Xunit**: CRiação de testes unitários.
 ---
 ## **Como Executar o Projeto**
 ### **1. Configuração Inicial do Banco de Dados**
@@ -106,6 +107,12 @@ Biblioteca utilizada para validações e compartilhamento de recursos comuns:
 - **Enums**: Classes de enums para erros.
 - **Helpers**: Classe auxiliar para validação de erros.
 - **Validator**: Regras de validação para as entidades.
+---
+### **6. BalanceFlow.Tests**
+Biblioteca utilizada para testes unitários:
+1. Organização das pastas:
+- **Entity**: Classes das entidades com testes unitários.
+- **Service**: Classes das services com testes unitários.
 ---
 ## **Melhorias do projeto**
 - **XUnit/Testes unitários**: Criação de testes unitários para as entidades e para as classes de serviços, garantindo uma maior cobertura de segurança do sistema.

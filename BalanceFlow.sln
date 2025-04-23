@@ -4,14 +4,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.13.35919.96 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow", "BalanceFlow\BalanceFlow.csproj", "{2815FB60-F28D-4C17-A271-31B64DBC9366}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2C0AF272-13C7-4D8B-9422-5834730BA673} = {2C0AF272-13C7-4D8B-9422-5834730BA673}
+		{64DB6250-6D6F-4D1D-9D3D-B818D25A9192} = {64DB6250-6D6F-4D1D-9D3D-B818D25A9192}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow.Application", "BalanceFlow.Application\BalanceFlow.Application.csproj", "{2C0AF272-13C7-4D8B-9422-5834730BA673}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1A99B0EC-8895-49D3-A630-D8ACE51F5676} = {1A99B0EC-8895-49D3-A630-D8ACE51F5676}
+		{208799FC-A81B-4908-9092-3063A39AF54F} = {208799FC-A81B-4908-9092-3063A39AF54F}
+		{64DB6250-6D6F-4D1D-9D3D-B818D25A9192} = {64DB6250-6D6F-4D1D-9D3D-B818D25A9192}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow.Domain", "BalanceFlow.Domain\BalanceFlow.Domain.csproj", "{64DB6250-6D6F-4D1D-9D3D-B818D25A9192}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow.Infrastracture", "BalanceFlow.Infrastracture\BalanceFlow.Infrastracture.csproj", "{1A99B0EC-8895-49D3-A630-D8ACE51F5676}"
+	ProjectSection(ProjectDependencies) = postProject
+		{64DB6250-6D6F-4D1D-9D3D-B818D25A9192} = {64DB6250-6D6F-4D1D-9D3D-B818D25A9192}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceFlow.Shared", "BalanceFlow.Shared\BalanceFlow.Shared.csproj", "{208799FC-A81B-4908-9092-3063A39AF54F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{64DB6250-6D6F-4D1D-9D3D-B818D25A9192} = {64DB6250-6D6F-4D1D-9D3D-B818D25A9192}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

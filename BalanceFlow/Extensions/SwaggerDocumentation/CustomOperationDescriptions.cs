@@ -50,7 +50,13 @@ namespace BalanceFlow.Extensions.SwaggerDocumentation
             var method = context.ApiDescription.HttpMethod;
             var path = context.ApiDescription.RelativePath?.ToLower() ?? string.Empty;
 
-            if (method == "GET")
+            if (method == "POST")
+            {
+                operation.Summary = "Create a new daily balance.";
+                operation.Description = "Adds a new daily balance.";
+                AddResponses(operation, "200", "The daily balance was successfully created.");
+            }
+            else if (method == "GET")
             {
                 operation.Summary = "Gets all daily consolidated balances";
                 operation.Description = "This endpoint allows you to retrieve details of all daily consolidated balances.";

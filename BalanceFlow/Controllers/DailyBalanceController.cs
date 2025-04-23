@@ -15,6 +15,18 @@ namespace BalanceFlow.Controllers
             _serviceUoW = unitOfWorkService;
         }
 
+        [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Create([FromBody] DailyBalanceEntity dailyBalance)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _serviceUoW.DailyBalanceService.Add(dailyBalance);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<DailyBalanceEntity>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

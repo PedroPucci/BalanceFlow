@@ -31,6 +31,10 @@ namespace BalanceFlow.Application.Services
                 }
 
                 cashEntryEntity.Description = cashEntryEntity.Description;
+                cashEntryEntity.Type = cashEntryEntity.Type;
+                cashEntryEntity.Amount = cashEntryEntity.Amount;
+                cashEntryEntity.TransactionDate = cashEntryEntity.TransactionDate;
+                cashEntryEntity.DailyBalanceId = cashEntryEntity.DailyBalanceId;
                 cashEntryEntity.CreatedAt = DateTime.UtcNow; 
                 
                 var result = await _repositoryUoW.CashEntryRepository.Add(cashEntryEntity);

@@ -10,9 +10,8 @@ namespace BalanceFlow.Domain.Entity
         public string? Type { get; set; }
         public decimal Amount { get; set; }
         public DateTime TransactionDate { get; set; }
-        public DateTime CreatedAt { get; set; }
-
-        
+        [JsonIgnore]
+        public DateTime CreatedAt { get; set; }                
         public int DailyBalanceId { get; set; }
         [JsonIgnore]
         public DailyBalanceEntity? DailyBalance { get; set; }

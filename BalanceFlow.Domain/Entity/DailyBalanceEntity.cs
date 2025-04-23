@@ -10,6 +10,8 @@ namespace BalanceFlow.Domain.Entity
         public decimal TotalCredit { get; set; }
         public decimal TotalDebit { get; set; }
         public decimal FinalBalance { get; set; }
+
+        [JsonIgnore]
         public DateTime CreatedAt { get; set; }
 
         [JsonIgnore]

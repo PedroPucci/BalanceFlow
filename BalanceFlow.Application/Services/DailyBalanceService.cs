@@ -30,7 +30,8 @@ namespace BalanceFlow.Application.Services
                     return Result<DailyBalanceEntity>.Error(isValidDailyBalance.Message);
                 }
 
-                dailyBalanceEntity.BalanceDate = DateTime.UtcNow;
+                dailyBalanceEntity.BalanceDate = dailyBalanceEntity.BalanceDate;
+                dailyBalanceEntity.CreatedAt = DateTime.UtcNow;
                 dailyBalanceEntity.TotalDebit = dailyBalanceEntity.TotalDebit;
                 dailyBalanceEntity.FinalBalance = dailyBalanceEntity.FinalBalance;
 

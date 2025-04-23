@@ -12,6 +12,7 @@ namespace BalanceFlow.Domain.Entity
         public decimal FinalBalance { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        [JsonIgnore]
         public ICollection<CashEntryEntity> CashEntries { get; set; } = new List<CashEntryEntity>();
     }
 }

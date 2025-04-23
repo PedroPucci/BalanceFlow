@@ -2,6 +2,9 @@
 using BalanceFlow.Application.Services.Interfaces;
 using BalanceFlow.Domain.Entity;
 using BalanceFlow.Infrastracture.Repository.RepositoryUoW;
+using BalanceFlow.Shared.Logging;
+using BalanceFlow.Shared.Validator;
+using Serilog;
 
 namespace BalanceFlow.Application.Services
 {
@@ -14,24 +17,76 @@ namespace BalanceFlow.Application.Services
             _repositoryUoW = repositoryUoW;
         }
 
-        public Task<Result<DailyBalanceEntity>> Add(DailyBalanceEntity dailyBalanceEntity)
+        public async Task<Result<DailyBalanceEntity>> Add(DailyBalanceEntity dailyBalanceEntity)
         {
-            throw new NotImplementedException();
+            using var transaction = _repositoryUoW.BeginTransaction();
+            try
+            {
+                var isValidDailyBalance = await IsValidDailyBalanceRequest(dailyBalanceEntity);
+
+                if (!isValidDailyBalance.Success)
+                {
+                    Log.Error(LogMessages.InvalidDailyBalanceInputs());
+                    return Result<DailyBalanceEntity>.Error(isValidDailyBalance.Message);
+                }
+
+                dailyBalanceEntity.BalanceDate = DateTime.UtcNow;
+                dailyBalanceEntity.TotalDebit = dailyBalanceEntity.TotalDebit;
+                dailyBalanceEntity.FinalBalance = dailyBalanceEntity.FinalBalance;
+
+                var result = await _repositoryUoW.DailyBalanceRepository.Add(dailyBalanceEntity);
+
+                await _repositoryUoW.SaveAsync();
+                await transaction.CommitAsync();
+
+                return Result<DailyBalanceEntity>.Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(LogMessages.AddingDailyBalanceError(ex));
+                transaction.Rollback();
+                throw new InvalidOperationException("Error to add a new daily balance.");
+            }
+            finally
+            {
+                Log.Error(LogMessages.AddingDailyBalanceSuccess());
+                transaction.Dispose();
+            }
         }
 
-        public Task Delete(int dailyBalanceId)
+        public async Task<List<DailyBalanceEntity>> Get()
         {
-            throw new NotImplementedException();
+            using var transaction = _repositoryUoW.BeginTransaction();
+            try
+            {
+                List<DailyBalanceEntity> dailyBalanceEntities = await _repositoryUoW.DailyBalanceRepository.Get();
+                _repositoryUoW.Commit();
+                return dailyBalanceEntities;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(LogMessages.GetAllDailyBalanceError(ex));
+                transaction.Rollback();
+                throw new InvalidOperationException("Error to loading the list daily balance");
+            }
+            finally
+            {
+                Log.Error(LogMessages.GetAllDailyBalanceSuccess());
+                transaction.Dispose();
+            }
         }
 
-        public Task<List<DailyBalanceEntity>> Get()
+        private async Task<Result<DailyBalanceEntity>> IsValidDailyBalanceRequest(DailyBalanceEntity dailyBalanceEntity)
         {
-            throw new NotImplementedException();
-        }
+            var requestValidator = await new DailyBalanceRequestValidator().ValidateAsync(dailyBalanceEntity);
+            if (!requestValidator.IsValid)
+            {
+                string errorMessage = string.Join(" ", requestValidator.Errors.Select(e => e.ErrorMessage));
+                errorMessage = errorMessage.Replace(Environment.NewLine, "");
+                return Result<DailyBalanceEntity>.Error(errorMessage);
+            }
 
-        public Task<Result<DailyBalanceEntity>> Update(DailyBalanceEntity dailyBalanceEntity)
-        {
-            throw new NotImplementedException();
+            return Result<DailyBalanceEntity>.Ok();
         }
     }
 }

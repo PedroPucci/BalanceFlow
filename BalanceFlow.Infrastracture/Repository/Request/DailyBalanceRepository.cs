@@ -1,6 +1,7 @@
 ﻿using BalanceFlow.Domain.Entity;
 using BalanceFlow.Infrastracture.Connections;
 using BalanceFlow.Infrastracture.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BalanceFlow.Infrastracture.Repository.Request
 {
@@ -13,24 +14,29 @@ namespace BalanceFlow.Infrastracture.Repository.Request
             _context = context;
         }
 
-        public Task<DailyBalanceEntity> Add(DailyBalanceEntity dailyBalanceEntity)
+        public async Task<DailyBalanceEntity> Add(DailyBalanceEntity dailyBalanceEntity)
         {
-            throw new NotImplementedException();
+            if (dailyBalanceEntity is null)
+                throw new ArgumentNullException(nameof(dailyBalanceEntity), "Daily balance cannot be null");
+
+            var result = await _context.DailyBalanceEntity.AddAsync(dailyBalanceEntity);
+            await _context.SaveChangesAsync();
+
+            return result.Entity;
         }
 
-        public DailyBalanceEntity Delete(DailyBalanceEntity dailyBalanceEntity)
+        public async Task<List<DailyBalanceEntity>> Get()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<DailyBalanceEntity>> Get()
-        {
-            throw new NotImplementedException();
-        }
-
-        public DailyBalanceEntity Update(DailyBalanceEntity dailyBalanceEntity)
-        {
-            throw new NotImplementedException();
+            return await _context.DailyBalanceEntity
+                .AsNoTracking()
+                .OrderBy(balance => balance.Id)
+                .Select(balance => new DailyBalanceEntity
+                {
+                    Id = balance.Id,
+                    FinalBalance = balance.FinalBalance,
+                    TotalDebit = balance.TotalDebit,
+                })
+                .ToListAsync();
         }
     }
 }

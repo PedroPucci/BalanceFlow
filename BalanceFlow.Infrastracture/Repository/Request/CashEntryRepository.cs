@@ -17,7 +17,7 @@ namespace BalanceFlow.Infrastracture.Repository.Request
         public async Task<CashEntryEntity> Add(CashEntryEntity cashEntryEntity)
         {
             if (cashEntryEntity is null)
-                throw new ArgumentNullException(nameof(cashEntryEntity), "CashEntry cannot be null");
+                throw new ArgumentNullException(nameof(cashEntryEntity), "Cash entry cannot be null");
 
             var result = await _context.CashEntryEntity.AddAsync(cashEntryEntity);
             await _context.SaveChangesAsync();
